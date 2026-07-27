@@ -157,27 +157,18 @@ where `tag` identifies the operation (`load_csv`, `groupby`, `mean`, …), `dura
 
 ### 5. Summarizing and analyzing results
 
-Move/copy the raw output CSVs into `Results/<Library>/<Library>_v<version>/<Library>_v<version>_itr(<N>)/`, matching the existing folder convention, then:
+All summarization, statistical testing, and figure/table generation for this study have already been completed. Every figure and table reported in the paper was produced from `Code/summary_generator_green_energy.ipynb`, which contains the full pipeline: IQR/MAD-based outlier filtering, Shapiro–Wilk normality testing, the Friedman omnibus test, Wilcoxon signed-rank pairwise tests with Mann–Whitney U fallback, Cliff's Delta effect sizes, and Spearman energy–time correlation.
 
-- **Per-file outlier removal + summary** — edit the `file_array` list in `Code/analysis.py` to point at your CSVs, then run:
-  ```bash
-  python Code/analysis.py
-  ```
-  This applies MAD-based outlier filtering per operation tag and writes averaged `duration`/`package_0`/`dram_0`/`core_0` summaries to `summary_files/`.
+The outputs of this pipeline are already included in this repository and do not need to be regenerated:
 
-- **Pairwise significance (rank-sum)** — edit the `data`/`libraries` dictionaries at the top of `Code/compute_p.py` to point at the CSVs being compared, then run:
-  ```bash
-  python Code/compute_p.py
-  ```
-  This produces a `<dataset>_wilcoxon_ranksum_test_pvalues.csv` with p-values per operation tag.
+- `Results/summary_results/summary_<Library>/` — per-tag mean/median/std summaries
+- `Results/Statistical_Analysis_Results/` — Shapiro, Friedman, Wilcoxon, and Cliff's Delta result workbooks
+- `Results/output_tables/`, `Results/output_tables_1/` — consolidated CSV/LaTeX tables (`table_I`–`table_IV`)
+- `Results/figures/` — every generated PNG/PDF figure (`fig01`–`fig24`, `figure2`–`figure6`, etc.)
 
-- **Full statistical pipeline and all paper figures/tables** — open `Code/summary_generator_green_energy.ipynb`. This notebook contains the complete pipeline used in the paper: IQR/MAD-based outlier filtering, Shapiro–Wilk normality testing, the Friedman omnibus test, Wilcoxon signed-rank pairwise tests with Mann–Whitney U fallback, Cliff's Delta effect sizes, Spearman energy–time correlation, and every figure/table (`fig01`–`fig24`, `table_I`–`table_IV`) found in `Results/figures/` and `Results/output_tables_1/`.
+If you collect new raw measurements (Step 4) and want to extend or rerun the analysis, place the new CSVs into `Results/<Library>/<Library>_v<version>/<Library>_v<version>_itr(<N>)/`, matching the existing folder convention, then rerun the relevant cells of `Code/summary_generator_green_energy.ipynb` against that folder. Note the notebook was originally developed on Google Colab and defaults to Google Drive paths (e.g. `ROOT_DIR = Path("/content/drive/MyDrive/Green energy/daksh_results")`), so `ROOT_DIR`/`OUTPUT_DIR` at the top of each cell would need to be pointed at your local `Results/` directory instead.
 
-  The notebook was originally developed on Google Colab and defaults to Google Drive paths, e.g.:
-  ```python
-  ROOT_DIR = Path("/content/drive/MyDrive/Green energy/daksh_results")
-  ```
-  To run it locally, update `ROOT_DIR` (and any `OUTPUT_DIR`) at the top of each cell to point at your local `Results/` directory, keeping the same `<Library>_v<version>_itr(<N>)/<library>_<dataset>_v<version>_itr(<N>).csv` folder/file structure the notebook expects.
+`Code/analysis.py` (per-file MAD-based outlier removal/summary) and `Code/compute_p.py` (pairwise Wilcoxon rank-sum p-values) are lighter-weight standalone scripts kept in the repo for ad-hoc checks on individual CSVs, but they are not required to reproduce the paper's results — the notebook supersedes both.
 
 ### 6. Required Python packages for analysis
 
