@@ -166,7 +166,7 @@ The outputs of this pipeline are already included in this repository and do not 
 - `Results/output_tables/`, `Results/output_tables_1/` — consolidated CSV/LaTeX tables (`table_I`–`table_IV`)
 - `Results/figures/` — every generated PNG/PDF figure (`fig01`–`fig24`, `figure2`–`figure6`, etc.)
 
-If you collect new raw measurements (Step 4) and want to extend or rerun the analysis, place the new CSVs into `Results/<Library>/<Library>_v<version>/<Library>_v<version>_itr(<N>)/`, matching the existing folder convention, then rerun the relevant cells of `Code/summary_generator_green_energy.ipynb` against that folder. Note the notebook was originally developed on Google Colab and defaults to Google Drive paths (e.g. `ROOT_DIR = Path("/content/drive/MyDrive/Green energy/daksh_results")`), so `ROOT_DIR`/`OUTPUT_DIR` at the top of each cell would need to be pointed at your local `Results/` directory instead.
+If you collect new raw measurements (Step 4) and want to extend or rerun the analysis, place the new CSVs into `Results/<Library>/<Library>_v<version>/<Library>_v<version>_itr(<N>)/`, matching the existing folder convention, then rerun the relevant cells of `Code/summary_generator_green_energy.ipynb` against that folder, pointing the `ROOT_DIR`/`OUTPUT_DIR` variables at the top of each cell to your local `Results/` directory.
 
 `Code/analysis.py` (per-file MAD-based outlier removal/summary) and `Code/compute_p.py` (pairwise Wilcoxon rank-sum p-values) are lighter-weight standalone scripts kept in the repo for ad-hoc checks on individual CSVs, but they are not required to reproduce the paper's results — the notebook supersedes both.
 
