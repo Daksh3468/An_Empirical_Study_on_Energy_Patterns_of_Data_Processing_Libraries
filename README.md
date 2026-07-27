@@ -1,5 +1,5 @@
 # Are Newer Library Versions Greener?
-# An Empirical Study on Energy Patterns of Data Processing Libraries
+An Empirical Study on Energy Patterns of Data Processing Libraries
 
 This repository contains the full experimental infrastructure, raw measurements, and analysis pipeline for an empirical study on the energy consumption and execution time of four Python dataframe libraries — **Pandas**, **Polars**, **Dask**, and **Vaex** — across multiple versions, six benchmark datasets, and 19 dataframe operations spanning I/O, missing-data handling, row/column manipulation, and statistical aggregation.
 
